@@ -27,7 +27,7 @@ Fair Billing is a Python program designed to analyze log files containing user s
 
 - Replace log.txt with the path to your log file.
 
-  3.View Results:
+3.View Results:
 
 - The program will process the log file and print the fair billing information for each user to the console.
 
