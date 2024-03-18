@@ -100,7 +100,7 @@ class FairBilling:
         pieces_list = self.process_valid_lines(lines)
         # checking for the first time in file
         first_time_in_file = datetime.strptime(f"{pieces_list[0].hours}:{pieces_list[0].minutes}:{
-                                               pieces_list[0].seconds}", '%H:%M:%S').time()
+            pieces_list[0].seconds}", '%H:%M:%S').time()
         # checking the last time in the file
         last_time_in_file = datetime.strptime(
             f"{pieces_list[-1].hours}:{pieces_list[-1].minutes}:{pieces_list[-1].seconds}", '%H:%M:%S').time()
