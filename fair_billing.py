@@ -127,7 +127,8 @@ if __name__ == "__main__":
             sys.exit(1)
 
         file_name = sys.argv[-1]
-        print(file_name)
+        if file_name.split('.')[-1] != 'txt':
+            raise ValueError("Invalid file format. Please pass .txt file")
         fair_billing = FairBilling()
         print("=> Reading log file:", file_name)
         lines = fair_billing.read_log_file_to_list(file_name)
