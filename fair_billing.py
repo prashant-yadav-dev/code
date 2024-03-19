@@ -99,11 +99,15 @@ class FairBilling:
     def process_file_as_list(self, lines):
         pieces_list = self.process_valid_lines(lines)
         # checking for the first time in file
-        first_time_in_file = datetime.strptime(f"{pieces_list[0].hours}:{pieces_list[0].minutes}:{
-            pieces_list[0].seconds}", '%H:%M:%S').time()
+        f_hour = pieces_list[0].hours
+        f_minutes = pieces_list[0].minutes
+        f_sec = pieces_list[0].seconds
+        first_time_in_file = datetime.strptime(f"{f_hour}:{f_minutes}:{f_sec}", '%H:%M:%S').time()
         # checking the last time in the file
-        last_time_in_file = datetime.strptime(
-            f"{pieces_list[-1].hours}:{pieces_list[-1].minutes}:{pieces_list[-1].seconds}", '%H:%M:%S').time()
+        l_hour = pieces_list[-1].hours
+        l_minute = pieces_list[-1].minutes
+        l_sec = pieces_list[-1].seconds
+        last_time_in_file = datetime.strptime(f"{l_hour}:{l_minute}:{l_sec}", '%H:%M:%S').time()
         user_session_map = self.create_user_session_map(pieces_list)
         results = []
         for user, sessions in user_session_map.items():
@@ -124,9 +128,10 @@ if __name__ == "__main__":
         if len(sys.argv) < 2:
             print("Wrong number of arguments:", len(sys.argv) - 1)
             print("Syntax is: python fair_billing.py <path to file>")
-            sys.exit(1)
+            # sys.exit(1)
+            # print(sys.argv)
 
-        file_name = sys.argv[-1]
+        file_name = sys.argv[-1] if len(sys.argv) > 1 else "samplelog.txt"
         if file_name.split('.')[-1] != 'txt':
             raise ValueError("Invalid file format. Please pass .txt file")
         fair_billing = FairBilling()
@@ -136,7 +141,7 @@ if __name__ == "__main__":
         results = fair_billing.process_file_as_list(lines)
         print("******* User Reports *******")
         for result in results:
-            print(f"{result.userid} {result.number_of_sessions} {result.total_session_time}")
+            print(f"{result.userid} | {result.number_of_sessions} | {result.total_session_time}")
 
     except BaseException as e:
         print("Something went wrong:", e)
